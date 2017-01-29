@@ -895,8 +895,6 @@ make_content_buf(
         len += ngx_sizeof_ssz("<tr><td class=\"link\"><a href=\"")
             + entry[i].name.len + entry[i].escape /* Escaped URL */
             + ngx_sizeof_ssz("?C=x&amp;O=y") /* URL sorting arguments */
-            + ngx_sizeof_ssz("\" title=\"")
-            + entry[i].name.len + entry[i].utf_len + entry[i].escape_html
             + ngx_sizeof_ssz("\">")
             + entry[i].name.len + entry[i].utf_len + entry[i].escape_html
             + alcf->name_length + ngx_sizeof_ssz("&gt;")
@@ -1084,9 +1082,6 @@ make_content_buf(
             }
         }
 
-        *b->last++ = '"';
-        b->last = ngx_cpymem_ssz(b->last, " title=\"");
-        b->last = (u_char *) ngx_escape_html(b->last, entry[i].name.data, entry[i].name.len);
         *b->last++ = '"';
         *b->last++ = '>';
 
